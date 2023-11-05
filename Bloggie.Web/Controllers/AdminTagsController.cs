@@ -2,38 +2,47 @@
 using Bloggie.Web.Models.Domain;
 using Bloggie.Web.Data;
 using Microsoft.AspNetCore.Mvc;
+using Bloggie.Web.Repositories;
 
-namespace Bloggie.Web.Controllers
+namespace Bloggie.Web.Controllers;
+
+public class AdminTagsController : Controller
 {
-    public class AdminTagsController : Controller
+    private readonly ITagInterface tagRepository;
+
+    public AdminTagsController(ITagInterface tagRepository)
     {
-        private BloggieDbContext bloggieDbContext;
+        this.tagRepository = tagRepository;
+    }
 
-        public AdminTagsController(BloggieDbContext bloggieDbContext)
+
+    [HttpGet]
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ActionName("Add")]
+    public async Task<IActionResult> Add(AddTagRequest addTagRequest)
+    {
+        var tag = new Tag
         {
-            this.bloggieDbContext = bloggieDbContext;
-        }
+            Name = addTagRequest.Name,
+            DisplayName = addTagRequest.DisplayName
+        };
 
+		//bloggieDbContext.Tags.Add(tag);
+		//bloggieDbContext.SaveChanges();
+		await tagRepository.AddAsync(tag);
 
-        [HttpGet]
-        public IActionResult Add()
-        {
-            return View();
-        }
+		return RedirectToAction("List");
+    }
 
-        [HttpPost]
-        public IActionResult Add(AddTagRequest addTagRequest)
-        {
-            var tag = new Tag
-            {
-                Name = addTagRequest.Name,
-                DisplayName = addTagRequest.DisplayName
-            };
-
-            bloggieDbContext.Tags.Add(tag);
-            bloggieDbContext.SaveChanges();
-
-            return View("Add");
-        }
+    [HttpGet]
+    public async Task<IActionResult> List()
+    {
+        var tags = await tagRepository.GetAllAsync();
+        return View(tags);
     }
 }

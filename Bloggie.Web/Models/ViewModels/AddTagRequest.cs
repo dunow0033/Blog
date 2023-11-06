@@ -1,9 +1,8 @@
-﻿namespace Bloggie.Web.Models.ViewModels
-{
-    public class AddTagRequest
-    {
-        public string Name { get; set; }
+﻿namespace Bloggie.Web.Models.ViewModels;
 
-        public string DisplayName { get; set; }
-    }
+public class AddTagRequest
+{
+    public string Name { get; set; }
+
+    public string DisplayName { get; set; }
 }

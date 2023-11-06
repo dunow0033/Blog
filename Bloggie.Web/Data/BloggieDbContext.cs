@@ -14,5 +14,5 @@ public class BloggieDbContext: DbContext
 
     public DbSet<Tag> Tags { get; set; }
 
-    //public DbSet<BlogPostLike> BlogPostLikes { get; set; }
+    public DbSet<BlogPostLike> BlogPostLikes { get; set; }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bloggie.Web.Repositories;
 
-public class TagRepository : ITagInterface
+public class TagRepository : ITagRepository
 {
     private readonly BloggieDbContext bloggieDbContext;
 
@@ -15,7 +15,7 @@ public class TagRepository : ITagInterface
 
     public async Task<Tag?> AddAsync(Tag tag)
     {
-        await bloggieDbContext.AddAsync(tag);
+        await bloggieDbContext.Tags.AddAsync(tag);
         await bloggieDbContext.SaveChangesAsync();
         return tag;
     }
@@ -26,7 +26,7 @@ public class TagRepository : ITagInterface
         
         if (existingTag != null)
         {
-            bloggieDbContext.Remove(existingTag);
+            bloggieDbContext.Tags.Remove(existingTag);
             await bloggieDbContext.SaveChangesAsync();
 
             return existingTag;
@@ -48,7 +48,7 @@ public class TagRepository : ITagInterface
     {
         var existingTag = await bloggieDbContext.Tags.FindAsync(tag.Id);
 
-        if(existingTag != null)
+        if (existingTag != null)
         {
             existingTag.Name = tag.Name;
             existingTag.DisplayName = tag.DisplayName;

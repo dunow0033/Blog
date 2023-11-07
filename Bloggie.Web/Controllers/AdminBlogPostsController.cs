@@ -3,16 +3,17 @@ using Bloggie.Web.Models.Domain;
 using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bloggie.Web.Controllers;
 
 //[Authorize(Roles = "Admin")]
 public class AdminBlogPostsController : Controller
 {
-	private readonly ITagInterface tagRepository;
+	private readonly ITagRepository tagRepository;
 	private readonly IBlogPostRepository blogPostRepository;
 
-	public AdminBlogPostsController(ITagInterface tagRepository, IBlogPostRepository blogPostRepository)
+	public AdminBlogPostsController(ITagRepository tagRepository, IBlogPostRepository blogPostRepository)
 	{
 		this.tagRepository = tagRepository;
 		this.blogPostRepository = blogPostRepository;
@@ -26,9 +27,16 @@ public class AdminBlogPostsController : Controller
 	//}
 
 	[HttpGet]
-    public IActionResult Add()
+    public async Task<IActionResult> Add()
 	{
-		return View();
+		var tags = await tagRepository.GetAllAsync();
+
+		var model = new AddBlogPostRequest
+		{
+			Tags = tags.Select(x => new SelectListItem { Text = x.DisplayName, Value = x.Id.ToString() })
+		};
+
+		return View(model);
 	}
 
 	[HttpPost]

@@ -17,7 +17,7 @@
             <input type="text" class="form-control" id="heading" asp-for="Heading" />
         </div>
 
-        <div class="mb-3">
+       <div class="mb-3">
             <label class="form-label">Page Title</label>
             <input type="text" class="form-control" id="pageTitle" asp-for="PageTitle" />
         </div>
@@ -38,14 +38,13 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Featured Image Upload</label>
-            <input type="file" class="form-control" id="featuredImageUpload" />
-
-            <img src="" id="featuredImageDisplay" style="display:none; width: 300px" />
+            <label class="form-label">Featured Image URL</label>
+            <input type="text" class="form-control" id="featuredImageUpload" />
+            <!--<img src="" id="featuredImageDisplay" style="display:none; width: 300px" />-->
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Url Handle</label>
+            <label class="form-label">URL Handle</label>
             <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
         </div>
 
@@ -61,7 +60,9 @@
 
         <div class="mb-3">
             <label class="form-label">Tags</label>
-            <select class="form-select" asp-items="@Model.Tags" asp-for="SelectedTags">
+            <select class="form-select" 
+                    asp-items="@Model.Tags" 
+                    asp-for="SelectedTags">
             </select>
         </div>
 

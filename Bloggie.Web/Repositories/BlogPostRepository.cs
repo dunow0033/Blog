@@ -36,12 +36,12 @@ public class BlogPostRepository : IBlogPostRepository
 
 	public async Task<IEnumerable<BlogPost>> GetAllAsync()
 	{
-		return await bloggieDbContext.BlogPosts.ToListAsync();
+		return await bloggieDbContext.BlogPosts.Include(x => x.Tags).ToListAsync();
 	}
 
 	public async Task<BlogPost?> GetAsync(Guid id)
 	{
-		return await bloggieDbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
+		return await bloggieDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == id);
 	}
 
     public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
@@ -52,7 +52,8 @@ public class BlogPostRepository : IBlogPostRepository
     public async Task<BlogPost?> UpdateAsync(BlogPost blogPost)
     {
         var existingBlog = await bloggieDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == blogPost.Id);
-        if (existingBlog != null)
+        
+		if (existingBlog != null)
         {
             existingBlog.Id = blogPost.Id;
             existingBlog.Author = blogPost.Author;

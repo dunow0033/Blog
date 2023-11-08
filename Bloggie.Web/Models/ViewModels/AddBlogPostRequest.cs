@@ -18,5 +18,5 @@ public class AddBlogPostRequest
 	public IEnumerable<SelectListItem> Tags { get; set; }
 
 	//Seçili olanı almak için
-	public string[] SelectedTags { get; set; }
+	public string[] SelectedTags { get; set; } = Array.Empty<string>();
 }

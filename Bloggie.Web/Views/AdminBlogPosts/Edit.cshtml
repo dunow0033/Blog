@@ -1,17 +1,22 @@
-﻿@model Bloggie.Web.Models.ViewModels.AddBlogPostRequest
+﻿@model Bloggie.Web.Models.ViewModels.EditBlogPostRequest
 @{
-
 }
-
 
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
-        <h1>Add New Blog Post - Admin Functionality</h1>
+        <h1>Edit Blog Post - Admin Functionality</h1>
     </div>
 </div>
 
 <div class="container py-5">
-    <form method="post">
+    @if(Model != null)
+    {
+        <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" id="id" asp-for="Id" readonly />
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Heading</label>
             <input type="text" class="form-control" id="heading" asp-for="Heading" />
@@ -60,19 +65,28 @@
 
         <div class="mb-3">
             <label class="form-label">Tags</label>
-            <select class="form-select" asp-items="@Model.Tags" 
+            <select class="form-select" 
+                    asp-items="@Model.Tags" 
                     asp-for="SelectedTags">
             </select>
         </div>
 
-        <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="visible" asp-for="Visible" />
-            <label class="form-check-label">Is Visible? </label>
+        <div class="mb-3" d-flex>
+            <button type="submit" class="btn btn-dark">Update</button>
+     
+            <button type="submit" 
+                    class="btn btn-danger ms-2"
+                    asp-area=""
+                    asp-controller="AdminBlogPosts"
+                    asp-action="Delete">
+                  Delete
+             </button>
         </div>
 
-        <div class="mb-3">
-            <button type="submit" class="btn btn-dark">Add</button>
-        </div>
-
-    </form>
+        </form>
+        }
+        else
+        {
+            <p>No blog post found</p>
+        }
 </div>

@@ -9,14 +9,16 @@ public class BlogsController : Controller
 	private readonly IBlogPostRepository blogPostRepository;
 	private readonly IBlogPostLikeRepository blogPostLikeRepository;
 
-	public BlogsController(IBlogPostRepository blogPostRepository, IBlogPostLikeRepository blogPostLikeRepository)
+	public BlogsController(IBlogPostRepository blogPostRepository)
 	{
 		this.blogPostRepository = blogPostRepository;
-		this.blogPostLikeRepository = blogPostLikeRepository;
 	}
 
-	public IActionResult Index()
+	[HttpGet]
+	public async Task<IActionResult> Index(string urlHandle)
 	{
-		return View();
+		var blogPost = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
+
+		return View(blogPost);
 	}
 }

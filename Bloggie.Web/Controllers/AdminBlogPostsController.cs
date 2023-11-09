@@ -19,14 +19,7 @@ public class AdminBlogPostsController : Controller
 		this.blogPostRepository = blogPostRepository;
 	}
 
-	//[HttpGet]
-	//public async Task<IActionResult> List()
-	//{
-	//	var blogPost = await blogPostRepository.GetAllAsync();
-	//	return View();
-	//}
-
-	[HttpGet]
+    [HttpGet]
     public async Task<IActionResult> Add()
 	{
 		var tags = await tagRepository.GetAllAsync();
@@ -75,7 +68,12 @@ public class AdminBlogPostsController : Controller
 		return RedirectToAction("List");
     }
 
-	[HttpGet]
+    public IActionResult Home()
+    {
+		return RedirectToAction("List");
+    }
+
+    [HttpGet]
 	public async Task<IActionResult> List()
 	{
 		var blogPost = await blogPostRepository.GetAllAsync();

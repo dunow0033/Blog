@@ -85,3 +85,5 @@ C:\Users\bedon\source\repos\Bloggie.Web\Bloggie.Web\obj\Debug\net6.0\refint\Blog
 C:\Users\bedon\source\repos\Bloggie.Web\Bloggie.Web\obj\Debug\net6.0\Bloggie.Web.pdb
 C:\Users\bedon\source\repos\Bloggie.Web\Bloggie.Web\obj\Debug\net6.0\Bloggie.Web.genruntimeconfig.cache
 C:\Users\bedon\source\repos\Bloggie.Web\Bloggie.Web\obj\Debug\net6.0\ref\Bloggie.Web.dll
+C:\Users\bedon\source\repos\Bloggie.Web\Bloggie.Web\bin\Debug\net6.0\CloudinaryDotNet.dll
+C:\Users\bedon\source\repos\Bloggie.Web\Bloggie.Web\bin\Debug\net6.0\Newtonsoft.Json.dll

@@ -38,20 +38,28 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Featured Image Url</label>
-            <input type="text" class="form-control" id="featuredImageURL" asp-for="FeaturedImageUrl" />
-        </div>
+            <label class="form-label">Featured Image Upload</label>
+            <input type="file" id="featuredImageUpload" class="form-control" />
 
-        <div class="mb-3">
-            <label class="form-label">Featured Image URL</label>
-            <input type="text" class="form-control" id="featuredImageUpload" />
-            <!--<img src="" id="featuredImageDisplay" style="display:none; width: 300px" />-->
-        </div>
+            @if(Model.FeaturedImageUrl != null)
+            {
+                <img src="@Model.FeaturedImageUrl" id="featuredImageDisplay" style="display:block;width:300px;" />
+            }
+            else
+            {
+                <img src="" id="featuredImageDisplay" style="display:none;" />
+            }
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">URL Handle</label>
-            <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Featured Image URL</label>
+                <input type="text" class="form-control" id="featuredImageUrl" asp-for="FeaturedImageUrl" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">URL Handle</label>
+                <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+            </div>
 
         <div class="mb-3">
             <label class="form-label">Published Date</label>
@@ -81,6 +89,11 @@
                     asp-action="Delete">
                   Delete
              </button>
+
+             <button type="submit" class="btn btn-primary ms-2"
+                    asp-area=""
+                     asp-controller="AdminBlogPosts"
+                     asp-action="Home">Home</button>
         </div>
 
         </form>
@@ -90,3 +103,37 @@
             <p>No blog post found</p>
         }
 </div>
+
+@section Scripts {
+    <script>
+        var editor = new FroalaEditor('#content', {
+            imageUploadURL: '/api/images'
+        });
+
+        const featuredUploadElement = document.getElementById('featuredImageUpload');
+        const featuredImageUrlElement = document.getElementById('featuredImageUrl');
+        const featuredImageDisplayElement = document.getElementById('featuredImageDisplay');
+
+        async function uploadFeaturedImage(e) {
+            //console.log(e.target.files[0]);
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'POST',
+                headers: {
+                    'Accept': '*/*',
+                },
+                body: data
+            }).then(response => response.json())
+                .then(result => {
+                    featuredImageUrlElement.value = result.link;
+                    featuredImageDisplayElement.src = result.link;
+                    featuredImageDisplayElement.style.display = 'block';
+                })
+        }
+
+        featuredUploadElement.addEventListener('change', uploadFeaturedImage);
+    </script>
+}

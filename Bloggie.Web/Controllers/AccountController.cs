@@ -47,9 +47,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string ReturnUrl)
     {
-        return View();
+        var model = new LoginViewModel
+        {
+            ReturnUrl = ReturnUrl
+        };
+
+        return View(model);
     }
 
     [HttpPost]
@@ -58,11 +63,29 @@ public class AccountController : Controller
         var signInResult = await signInManager.PasswordSignInAsync(loginViewModel.Username,
             loginViewModel.Password, false, false);
 
-        if(signInResult != null && signInResult.Succeeded)
+        if (signInResult != null && signInResult.Succeeded)
         {
+            if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl))
+            {
+                return Redirect(loginViewModel.ReturnUrl);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
+        return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        await signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
         return View();
     }
 }

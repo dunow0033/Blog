@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bloggie.Web.Migrations
 {
     [DbContext(typeof(BloggieDbContext))]
-    [Migration("20231026162022_initial migration")]
+    [Migration("20231111175542_initial migration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -85,6 +85,51 @@ namespace Bloggie.Web.Migrations
                     b.ToTable("BlogPosts");
                 });
 
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BlogPostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogPostId");
+
+                    b.ToTable("BlogPostComment");
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BlogPostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogPostId");
+
+                    b.ToTable("BlogPostLike");
+                });
+
             modelBuilder.Entity("Bloggie.Web.Models.Domain.Tag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -117,6 +162,31 @@ namespace Bloggie.Web.Migrations
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostComment", b =>
+                {
+                    b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
+                {
+                    b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPost", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

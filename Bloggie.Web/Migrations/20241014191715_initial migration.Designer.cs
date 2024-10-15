@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bloggie.Web.Migrations
 {
     [DbContext(typeof(BloggieDbContext))]
-    [Migration("20231111175542_initial migration")]
+    [Migration("20241014191715_initial migration")]
     partial class initialmigration
     {
         /// <inheritdoc />

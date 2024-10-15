@@ -110,6 +110,9 @@
             imageUploadURL: '/api/images'
         });
 
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('publishedDate').value = today;
+
         const featuredUploadElement = document.getElementById('featuredImageUpload');
         const featuredImageUrlElement = document.getElementById('featuredImageUrl');
         const featuredImageDisplayElement = document.getElementById('featuredImageDisplay');

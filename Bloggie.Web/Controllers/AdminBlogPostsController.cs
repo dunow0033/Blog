@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bloggie.Web.Controllers;
 
-//[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin")]
 public class AdminBlogPostsController : Controller
 {
 	private readonly ITagRepository tagRepository;

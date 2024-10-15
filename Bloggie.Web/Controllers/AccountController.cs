@@ -41,16 +41,26 @@ public class AccountController : Controller
 
                 if (roleIdentityResult.Succeeded)
                 {
-                    return RedirectToAction("Register");
+					//return RedirectToAction("Register");
+                    await signInManager.SignInAsync(identityUser, isPersistent: false);
+
+					return RedirectToAction("Index", "Home");
+				}
+            }
+            else
+            {
+                foreach(var error in identityResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
         }
 
-        return View();
+        return View(registerViewModel);
     }
 
     [HttpGet]
-    public IActionResult Login(string ReturnUrl)
+    public IActionResult Login(string ReturnUrl = "")
     {
         var model = new LoginViewModel
         {
@@ -63,6 +73,11 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel loginViewModel)
     {
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+
         var signInResult = await signInManager.PasswordSignInAsync(loginViewModel.Username,
             loginViewModel.Password, false, false);
 
@@ -75,6 +90,8 @@ public class AccountController : Controller
 
             return RedirectToAction("Index", "Home");
         }
+
+        ModelState.AddModelError(string.Empty, "Invalid username or password.");
 
         return View();
     }

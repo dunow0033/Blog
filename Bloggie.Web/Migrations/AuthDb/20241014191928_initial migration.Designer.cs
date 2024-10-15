@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bloggie.Web.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20231111175548_initial migration")]
+    [Migration("20241014191928_initial migration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -169,15 +169,15 @@ namespace Bloggie.Web.Migrations.AuthDb
                         {
                             Id = "472ba632-6133-44a1-b158-6c10bd7d850d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "54b25afe-d27b-4f49-947b-84fb9c4028f2",
+                            ConcurrencyStamp = "8a6a5d16-584f-4d0f-a7a1-236478424a8c",
                             Email = "superadmin@bloggie.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@BLOGGIE.COM",
                             NormalizedUserName = "SUPERADMIN@BLOGGIE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFEpI1VmhUJI9zWARYS3b9vhnK4ALrK3kjfEcLR+uT0rd4xlbi5AchY/sNQ/Eh32xw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECq+IXADG9/ObX0oyUpe/u1RZ4FXLj+pXJVVzsYoc8j8m6zX63l6eSmKNtWu+EgUlg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2df3e28d-f022-4bbb-8482-44374cf790f8",
+                            SecurityStamp = "0d85422d-ff63-4c75-ba3d-18a8fe7ab905",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@bloggie.com"
                         });

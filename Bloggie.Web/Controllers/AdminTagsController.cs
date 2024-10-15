@@ -28,6 +28,13 @@ public class AdminTagsController : Controller
     [ActionName("Add")]
     public async Task<IActionResult> Add(AddTagRequest addTagRequest)
     {
+        ValidateAddTagRequest(addTagRequest);
+
+        if(ModelState.IsValid == false)
+        {
+            return View();
+        }
+
         var tag = new Tag
         {
             Name = addTagRequest.Name,
@@ -40,15 +47,43 @@ public class AdminTagsController : Controller
 		return RedirectToAction("List");
     }
 
-    [HttpGet]
-    public async Task<IActionResult> List()
-    {
-        var tags = await tagRepository.GetAllAsync();
+	[HttpGet]
+	[ActionName("List")]
+	public async Task<IActionResult> List(
+		   string? searchQuery,
+		   string? sortBy,
+		   string? sortDirection,
+		   int pageSize = 3,
+		   int pageNumber = 1)
+	{
+		var totalRecords = await tagRepository.CountAsync();
+		var totalPages = Math.Ceiling((decimal)totalRecords / pageSize);
 
-        return View(tags);
-    }
+		if (pageNumber > totalPages)
+		{
+			pageNumber--;
+		}
 
-    [HttpGet]
+		if (pageNumber < 1)
+		{
+			pageNumber++;
+		}
+
+
+		ViewBag.TotalPages = totalPages;
+		ViewBag.SearchQuery = searchQuery;
+		ViewBag.SortBy = sortBy;
+		ViewBag.SortDirection = sortDirection;
+		ViewBag.PageSize = pageSize;
+		ViewBag.PageNumber = pageNumber;
+
+		// use dbContext to read the tags
+		var tags = await tagRepository.GetAllAsync(searchQuery, sortBy, sortDirection, pageNumber, pageSize);
+
+		return View(tags);
+	}
+
+	[HttpGet]
     public async Task<IActionResult> Edit(Guid id)
     {
         var tag = await tagRepository.GetAsync(id);
@@ -104,5 +139,16 @@ public class AdminTagsController : Controller
         }
 
         return RedirectToAction("Edit", new { id = editTagRequest.Id });
+    }
+
+    private void ValidateAddTagRequest(AddTagRequest request)
+    {
+        if (request.Name is not null && request.DisplayName is not null)
+        {
+            if (request.Name == request.DisplayName)
+            {
+                ModelState.AddModelError("DisplayName", "Name cannot be the same as DisplayName");
+            }
+        }
     }
 }

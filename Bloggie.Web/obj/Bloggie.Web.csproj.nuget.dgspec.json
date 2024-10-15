@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bedon\\source\\repos\\Bloggie.Web\\Bloggie.Web\\Bloggie.Web.csproj": {}
+    "C:\\Users\\Admin\\source\\repos\\Blog\\Bloggie.Web\\Bloggie.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bedon\\source\\repos\\Bloggie.Web\\Bloggie.Web\\Bloggie.Web.csproj": {
+    "C:\\Users\\Admin\\source\\repos\\Blog\\Bloggie.Web\\Bloggie.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bedon\\source\\repos\\Bloggie.Web\\Bloggie.Web\\Bloggie.Web.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\Blog\\Bloggie.Web\\Bloggie.Web.csproj",
         "projectName": "Bloggie.Web",
-        "projectPath": "C:\\Users\\bedon\\source\\repos\\Bloggie.Web\\Bloggie.Web\\Bloggie.Web.csproj",
-        "packagesPath": "C:\\Users\\bedon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bedon\\source\\repos\\Bloggie.Web\\Bloggie.Web\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\source\\repos\\Blog\\Bloggie.Web\\Bloggie.Web.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\source\\repos\\Blog\\Bloggie.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bedon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -35,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -79,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }
